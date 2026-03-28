@@ -1,10 +1,10 @@
 #include "board.h"
 #include "view.h"
-#include <SFML/Graphics.hpp>
+
 
 View::View(Board &b)
 {
-    Board game = b;
+    Board game = b; //TODO: make class member variable instead of declaring here; 
     loadImages();
 }
 
@@ -14,9 +14,21 @@ View::~View()
     //deconstruct 
 }
 
-void View::loadImages()
+void View::loadImages()  
 {
-    
+    blackBishop.loadFromFile("assets/black-bishop.png");
+    blackRook.loadFromFile("assets/black-rook.png");
+    blackKing.loadFromFile("assets/black-king.png");
+    blackKnight.loadFromFile("assets/black-knight.png");
+    blackPawn.loadFromFile("assets/black-pawn.png");
+    blackQueen.loadFromFile("assets/black-queen.png");
+
+    whiteBishop.loadFromFile("assets/white-bishop.png");
+    whiteRook.loadFromFile("assets/white-rook.png");
+    whiteKing.loadFromFile("assets/white-king.png");
+    whiteKnight.loadFromFile("assets/white-knight.png");
+    whitePawn.loadFromFile("assets/white-pawn.png");
+    whiteQueen.loadFromFile("assets/white-queen.png");
 }
 
 void View::repaint(sf::RenderWindow& window)

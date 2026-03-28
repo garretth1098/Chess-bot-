@@ -55,13 +55,12 @@ void start(Board& game)
 {
     const string startFen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
     game.loadBoard(startFen);
-    game.printBoard();
-
 }
 
 
 void run(Board& game, View& view, Controller& controller, int depth)
 {
+    //create SFML window 
     sf::RenderWindow window(sf::VideoMode(800, 800), "Big DEEP Blue", sf::Style::Close);
 
     // Event object to hold the event data
@@ -79,24 +78,6 @@ void run(Board& game, View& view, Controller& controller, int depth)
         view.repaint(window);
         window.display();
     }
-
-    // do
-	// 	{
-	// 		keepGoing = controller.update();
-	// 		model.update();
-	// 		view.repaint(); // This will indirectly call View.paintComponent
-	// 		Toolkit.getDefaultToolkit().sync(); // Updates screen
-
-	// 		// Go to sleep for 50 milliseconds
-	// 		try
-	// 		{
-	// 			Thread.sleep(50);
-	// 		} catch(Exception e) {
-	// 			e.printStackTrace();
-	// 			System.exit(1);
-	// 		}
-	// 	}
-	// 	while(keepGoing);
 }
 
 int main (int argc, char* argv[])
@@ -106,7 +87,7 @@ int main (int argc, char* argv[])
     Config config;
     config.parse(argc,argv); 
 
-    //create a new starting board and prints it 
+    //Create MVC architecture  
     Board game;
     View view(game);
     Controller controller(game);

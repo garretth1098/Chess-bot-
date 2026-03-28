@@ -41,8 +41,8 @@ void Board::loadBoard(string fen)  //rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR
         } 
         else if (isdigit(c))
         {
-            int empty = c - '0'; //--------> converts char to int 
-            for(int i = 0; i < empty; i++) //skips over empty squares 
+            int empty = c - '0'; //---------> converts char to int 
+            for(int i = 0; i < empty; i++) // skips over empty squares 
             {
                 CurrBoard[row][col] = nullptr;  // no piece here
                 col++; 
@@ -78,6 +78,7 @@ void Board::loadBoard(string fen)  //rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR
 }
 
 // prints a text version of the board to the terminal 
+// Used for testing TODO Remove later
 void Board::printBoard()
 {
     cout << "\n  ---------------------------------\n";

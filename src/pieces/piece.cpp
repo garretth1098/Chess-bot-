@@ -3,7 +3,7 @@
 
 Piece::Piece()
 {
-    unicodeImage = this->getSymbol();
+    unicodeImage = this->getSymbol();  // useless because I never call it TODO remove perhaps 
 }
 
 Piece::~Piece()
@@ -31,7 +31,7 @@ string Piece::getSymbol()
     }
 }
 
-void Piece::move()
+void Piece::move()  // Double check inheritance and abstract methods 
 {
     
 }
