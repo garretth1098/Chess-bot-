@@ -7,7 +7,7 @@ class Queen : public Piece
 {
     
     public: 
-        Queen(int color);
+        Queen(Color color);
         virtual ~Queen();
 
         void move() override;

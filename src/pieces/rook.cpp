@@ -1,8 +1,8 @@
 #include "rook.h"
 
-Rook::Rook(int color)
+Rook::Rook(Color color)
 {
-    this->type = Piece::Rook;
+    this->type = Piece::Type::Rook;
     this->color = color;
 
     unicodeImage = this->getSymbol();

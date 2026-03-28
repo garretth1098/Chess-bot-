@@ -50,7 +50,7 @@ void Board::loadBoard(string fen)  //rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR
         }
         else if(isalpha(c))
         {
-            int color = isupper(c) ? Piece::White : Piece::Black;  //lowercase is black upper is white 
+            Piece::Color color = isupper(c) ? Piece::Color::White : Piece::Color::Black;  //in FEN strings lowercase is black upper is white 
             
             char pieceType = tolower(c);  // simplify switch statement
             
@@ -97,5 +97,10 @@ void Board::printBoard()
     
     cout << "    a   b   c   d   e   f   g   h" << endl << endl;
 
+}
+
+const Piece* Board::getPiece(int row, int colm) const
+{
+    return CurrBoard[row][colm];
 }
  

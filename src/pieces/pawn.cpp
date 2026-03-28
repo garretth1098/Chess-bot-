@@ -1,8 +1,8 @@
 #include "pawn.h"
 
-Pawn::Pawn(int color)
+Pawn::Pawn(Color color)
 {
-    this->type = Piece::Pawn;
+    this->type = Piece::Type::Pawn;
     this->color = color;
 
     unicodeImage = this->getSymbol();

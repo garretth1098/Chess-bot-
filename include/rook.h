@@ -6,7 +6,7 @@
 class Rook : public Piece
 {    
     public: 
-        Rook(int color);
+        Rook(Color color);
         virtual ~Rook();
 
         void move() override;

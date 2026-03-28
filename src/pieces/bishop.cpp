@@ -1,8 +1,8 @@
 #include "bishop.h"
 
-Bishop::Bishop(int color)
+Bishop::Bishop(Color color)
 {
-    this->type = Piece::Bishop;
+    this->type = Piece::Type::Bishop;
     this->color = color;
 
     unicodeImage = this->getSymbol();

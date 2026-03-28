@@ -7,7 +7,7 @@ class Knight : public Piece
 {
     
     public: 
-        Knight(int color);
+        Knight(Color color);
         virtual ~Knight();
 
         void move() override;

@@ -1,8 +1,8 @@
 #include "queen.h"
 
-Queen::Queen(int color)
+Queen::Queen(Color color)
 {
-    this->type = Piece::Queen;
+    this->type = Piece::Type::Queen;
     this->color = color;
 
     unicodeImage = this->getSymbol();

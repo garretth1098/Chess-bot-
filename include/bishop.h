@@ -7,7 +7,7 @@ class Bishop : public Piece
 {
     
     public: 
-        Bishop(int color);
+        Bishop(Color color);
         virtual ~Bishop();
 
         void move() override;

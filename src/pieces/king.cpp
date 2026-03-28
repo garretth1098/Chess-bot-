@@ -1,8 +1,8 @@
 #include "king.h"
 
-King::King(int color)
+King::King(Color color)
 {
-    this->type = Piece::King;
+    this->type = Piece::Type::King;
     this->color = color;
 
     unicodeImage = this->getSymbol();

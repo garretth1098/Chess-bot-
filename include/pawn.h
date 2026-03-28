@@ -7,7 +7,7 @@ class Pawn : public Piece
 {
  
     public: 
-        Pawn(int color);
+        Pawn(Color color);
         virtual ~Pawn();
 
         void move() override;

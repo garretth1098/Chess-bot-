@@ -1,8 +1,8 @@
 #include "knight.h"
 
-Knight::Knight(int color)
+Knight::Knight(Color color)
 {
-    this->type = Piece::Knight;
+    this->type = Piece::Type::Knight;
     this->color = color;
 
     unicodeImage = this->getSymbol();
