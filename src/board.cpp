@@ -103,4 +103,20 @@ const Piece* Board::getPiece(int row, int colm) const
 {
     return CurrBoard[row][colm];
 }
+
+Piece* Board::getPiece(int row, int colm)
+{
+    return CurrBoard[row][colm];
+}
+
+
+void Board::movePiece(int startRow, int startCol, int endRow, int endCol)
+{
+    if(CurrBoard[endRow][endCol] != nullptr)
+    {
+        delete CurrBoard[endRow][endCol];
+        CurrBoard[endRow][endCol] = CurrBoard[startRow][startCol];
+        CurrBoard[startRow][startCol] = nullptr;
+    }
+}
  

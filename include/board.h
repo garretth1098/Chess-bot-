@@ -23,6 +23,8 @@ class Board
         void printBoard();
         void loadBoard(string fen); //------------> takes in a FEN string and loads it into the array
         const Piece* getPiece(int row, int colm) const;
+        Piece* getPiece(int row, int colm);
+        void movePiece(int startRow, int startCol, int endRow, int endCol);
 };
 
 
