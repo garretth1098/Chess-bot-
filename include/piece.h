@@ -22,7 +22,6 @@ class Piece
         string getSymbol();
         Type getPieceType() const;
         Color getPieceColor() const;
-
         virtual void move() = 0;
 
 

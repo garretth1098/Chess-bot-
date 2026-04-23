@@ -10,10 +10,15 @@ namespace sf {class RenderWindow;} //forward declaration
 class Controller
 {
     protected:
-        bool keepGoing;
+        Board& board;
+        bool pieceSelected = false;
+        int selectedRow;
+        int selectedCol;
+
+        const int TILE_SIZE = 100;
 
     public:
-        Controller(Board &board);
+        Controller(Board &b);
         virtual ~Controller();
 
         void update();

@@ -7,6 +7,7 @@
 View::View(const Board &b) : board(b)
 {
     loadImages();
+    sprite.setScale(0.8,0.8);  //so pieces properly fit the board squares 
 }
 
 
@@ -17,24 +18,24 @@ View::~View()
 
 void View::loadImages()  
 {
-    blackBishop.loadFromFile("assets/black-bishop.png");
-    blackRook.loadFromFile("assets/black-rook.png");
-    blackKing.loadFromFile("assets/black-king.png");
-    blackKnight.loadFromFile("assets/black-knight.png");
-    blackPawn.loadFromFile("assets/black-pawn.png");
-    blackQueen.loadFromFile("assets/black-queen.png");
+    blackBishop.loadFromFile("assets/black-bishop.png"); blackBishop.setSmooth(true);
+    blackRook.loadFromFile("assets/black-rook.png"); blackRook.setSmooth(true);
+    blackKing.loadFromFile("assets/black-king.png"); blackKing.setSmooth(true);
+    blackKnight.loadFromFile("assets/black-knight.png"); blackKnight.setSmooth(true);
+    blackPawn.loadFromFile("assets/black-pawn.png"); blackPawn.setSmooth(true);
+    blackQueen.loadFromFile("assets/black-queen.png"); blackQueen.setSmooth(true);
 
-    whiteBishop.loadFromFile("assets/white-bishop.png");
-    whiteRook.loadFromFile("assets/white-rook.png");
-    whiteKing.loadFromFile("assets/white-king.png");
-    whiteKnight.loadFromFile("assets/white-knight.png");
-    whitePawn.loadFromFile("assets/white-pawn.png");
-    whiteQueen.loadFromFile("assets/white-queen.png");
+    whiteBishop.loadFromFile("assets/white-bishop.png"); whiteBishop.setSmooth(true);
+    whiteRook.loadFromFile("assets/white-rook.png"); whiteRook.setSmooth(true);
+    whiteKing.loadFromFile("assets/white-king.png"); whiteKing.setSmooth(true);
+    whiteKnight.loadFromFile("assets/white-knight.png"); whiteKnight.setSmooth(true);
+    whitePawn.loadFromFile("assets/white-pawn.png"); whitePawn.setSmooth(true);
+    whiteQueen.loadFromFile("assets/white-queen.png"); whiteQueen.setSmooth(true);
 }
 
 void View::setTexture(const Piece* p) //TODO refactor to use a lookup table for textures but this function will not scale so it works 
 {
-    if(p->getPieceColor() == Piece::Color::White)
+    if(p->getPieceColor() == Piece::Color::White) // piece is white 
     {
         switch(p->getPieceType())
         {
@@ -47,7 +48,7 @@ void View::setTexture(const Piece* p) //TODO refactor to use a lookup table for 
 
         }
     }
-    else 
+    else // piece is black 
     {
         switch(p->getPieceType())
         {
@@ -65,8 +66,6 @@ void View::setTexture(const Piece* p) //TODO refactor to use a lookup table for 
 
 void View::drawBoard(sf::RenderWindow& window)
 {
-    const int BOARD_SIZE = 8;
-    const float TILE_SIZE = 100.f;
 
     sf::RectangleShape square({TILE_SIZE, TILE_SIZE});  //creates the shape 
 
@@ -88,8 +87,6 @@ void View::drawBoard(sf::RenderWindow& window)
 
 void View::drawPieces(sf::RenderWindow& window)
 {
-    const int BOARD_SIZE = 8;
-    const float TILE_SIZE = 100.f;
 
     for (int row = 0; row < BOARD_SIZE; ++row)
         {
@@ -99,7 +96,7 @@ void View::drawPieces(sf::RenderWindow& window)
                 if(p != nullptr)
                 {
                   setTexture(p);
-                  sprite.setPosition(col * TILE_SIZE, row * TILE_SIZE);
+                  sprite.setPosition(col * TILE_SIZE, (7 - row) * TILE_SIZE);  // must invert y coordinate to account for inverse y axis on window
                   window.draw(sprite);  
                 }
                 

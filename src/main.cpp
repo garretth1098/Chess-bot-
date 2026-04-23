@@ -62,6 +62,7 @@ void run(Board& game, View& view, Controller& controller, int depth)
 {
     //create SFML window 
     sf::RenderWindow window(sf::VideoMode(800, 800), "Big DEEP Blue", sf::Style::Close);
+    window.setFramerateLimit(60);  //improve performance 
 
     // Event object to hold the event data
     sf::Event event;
@@ -74,11 +75,14 @@ void run(Board& game, View& view, Controller& controller, int depth)
             controller.handleEvent(event, window);
         }
 
-        window.clear();
+        window.clear();           // TODO: wait for user input to repaint instead of repainting every frame 
         view.repaint(window);
         window.display();
     }
 }
+
+
+
 
 int main (int argc, char* argv[])
 {
@@ -114,13 +118,6 @@ int main (int argc, char* argv[])
 /* Planning:
 
 TODO: piece polymorphism, psuedo legal moves, check moves, castling game state, en passant
-
-
-
-
-
-Additional Notes:
-ansci terminal escape codes for terminal animation 
 
 
 */

@@ -33,6 +33,9 @@ class View
         void drawBoard(sf::RenderWindow& window);
         void drawPieces(sf::RenderWindow& window);
 
+        const int BOARD_SIZE = 8;
+        const float TILE_SIZE = 100.f;
+
     public: 
         View(const Board &b);
         virtual ~View();
