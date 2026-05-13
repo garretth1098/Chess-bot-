@@ -112,11 +112,19 @@ Piece* Board::getPiece(int row, int colm)
 
 void Board::movePiece(int startRow, int startCol, int endRow, int endCol)
 {
+    Piece* movingPiece = CurrBoard[startRow][startCol];
+    Piece* targetPiece = CurrBoard[endRow][endCol];
+    
+    //return early if colors match as to not capture your own pieces
+    if(targetPiece != nullptr && movingPiece->getPieceColor() == targetPiece->getPieceColor())
+    {return;}
+
     if(CurrBoard[endRow][endCol] != nullptr)
     {
         delete CurrBoard[endRow][endCol];
-        CurrBoard[endRow][endCol] = CurrBoard[startRow][startCol];
-        CurrBoard[startRow][startCol] = nullptr;
     }
+    
+    CurrBoard[endRow][endCol] = CurrBoard[startRow][startCol];
+    CurrBoard[startRow][startCol] = nullptr;
 }
  

@@ -12,8 +12,18 @@ class Controller
     protected:
         Board& board;
         bool pieceSelected = false;
+        int col;
+        int row;
+        int mouseX;
+        int mouseY;
         int selectedRow;
         int selectedCol;
+        int startMouseX; 
+        int startMouseY;    
+        int dragX;
+        int dragY;
+
+        bool isDragging;
 
         const int TILE_SIZE = 100;
 
