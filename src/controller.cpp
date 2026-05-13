@@ -5,8 +5,8 @@
 #include <iostream>
 
 Controller::Controller(Board &b) : board(b)
-{
-    
+{   
+
 }
 
 Controller::~Controller()
@@ -17,6 +17,7 @@ Controller::~Controller()
 
 void Controller::update()
 {
+
 
 }
 
@@ -34,31 +35,77 @@ void Controller::handleEvent(const sf::Event& event, sf::RenderWindow& window)
             window.close();
         }
     }
+    
+    //================
+    //  Mouse events
+    //================
     if(event.type == sf::Event::MouseButtonPressed)
     {
-        if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
+        mouseX = event.mouseButton.x;
+        mouseY = event.mouseButton.y;
+
+        col = mouseX / TILE_SIZE;
+        row = 7 - (mouseY / TILE_SIZE);  //matches drawing logic
+
+        if(pieceSelected)
         {
-            int mouseX = event.mouseButton.x;
-            int mouseY = event.mouseButton.y;
+            board.movePiece(selectedRow, selectedCol, row, col);
+            pieceSelected = false;
+            isDragging = false;
+            selectedRow = -1; //----------> arbitrary values to reset variables
+            selectedCol = -1;
+            return;  //-------------------> assumes this is the second destination click and returns early
+        }
+        
+        Piece* p = board.getPiece(row, col);
 
-            int col = mouseX / TILE_SIZE;
-            int row = 7 - (mouseY / TILE_SIZE);  //matches drawing logic  
+        if (p != nullptr) // if user clicks on a piece  
+        {
+            pieceSelected = true;
+            isDragging = false;
 
-            Piece* p = board.getPiece(row,col);
+            selectedRow = row;
+            selectedCol = col;
 
-            if(p != nullptr)
+            startMouseX = mouseX;
+            startMouseY = mouseY;
+
+            dragX = mouseX;
+            dragY = mouseY;
+        }
+    }
+    else if (event.type == sf::Event::MouseMoved)
+    {
+        if (pieceSelected)
+        {
+            dragX = event.mouseMove.x;
+            dragY = event.mouseMove.y;
+
+            // detect if user moved enough to count as a drag
+            if (abs(dragX - startMouseX) > 5 ||
+                abs(dragY - startMouseY) > 5)
             {
-                pieceSelected = true;
-                selectedRow = row;
-                selectedCol = col;
-                
+                isDragging = true;
             }
-            if(pieceSelected  && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
-            {
-                cout << "start row:" << selectedRow << "start colm:" << selectedCol << "end dest:" << mouseX << "end colm" << mouseY;
-                board.movePiece(selectedRow,selectedCol,row, col);
-            }
+        }
+    }
+    else if (event.type == sf::Event::MouseButtonReleased &&
+            event.mouseButton.button == sf::Mouse::Left)
+    {
+        if (pieceSelected && isDragging)
+        {
+            mouseX = event.mouseButton.x;
+            mouseY = event.mouseButton.y;
 
+            col = mouseX / TILE_SIZE;
+            row = 7 - (mouseY / TILE_SIZE);
+
+            board.movePiece(selectedRow, selectedCol, row, col);
+
+            pieceSelected = false;
+            isDragging = false;
+            selectedRow = -1;
+            selectedCol = -1;
         }
     }
 
@@ -67,4 +114,5 @@ void Controller::handleEvent(const sf::Event& event, sf::RenderWindow& window)
     {
         window.setSize({800, 800});
     }
+
 }
