@@ -119,5 +119,13 @@ int main (int argc, char* argv[])
 
 TODO: piece polymorphism, psuedo legal moves, check moves, castling game state, en passant
 
+- build bitboards
+- move generation
+- evaluaiton
+- zobrist hashing 
+- alpha beta pruning
+- transposition tables 
+- tablebases/opening books
+
 
 */

@@ -7,6 +7,7 @@
 
 //forward declarations
 class Board; 
+class Controller;
 
 class View
 {
