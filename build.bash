@@ -6,7 +6,8 @@ INCLUDE_DIR="include"  # project-specific header files
 
 # source files
 SRC_FILES="src/main.cpp src/board.cpp src/view.cpp src/controller.cpp 
-           src/pieces/piece.cpp src/pieces/king.cpp src/pieces/queen.cpp src/pieces/pawn.cpp src/pieces/knight.cpp src/pieces/rook.cpp src/pieces/bishop.cpp"
+           src/pieces/piece.cpp src/pieces/king.cpp src/pieces/queen.cpp src/pieces/pawn.cpp src/pieces/knight.cpp src/pieces/rook.cpp src/pieces/bishop.cpp
+           src/engine/moveGen.cpp"
 
 # library paths  
 LIB_DIR="/usr/lib"  

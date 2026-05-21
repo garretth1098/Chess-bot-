@@ -119,12 +119,12 @@ void Board::movePiece(int startRow, int startCol, int endRow, int endCol)
     if(targetPiece != nullptr && movingPiece->getPieceColor() == targetPiece->getPieceColor())
     {return;}
 
-    if(CurrBoard[endRow][endCol] != nullptr)
+    if(targetPiece != nullptr)
     {
-        delete CurrBoard[endRow][endCol];
+        delete targetPiece;
     }
     
-    CurrBoard[endRow][endCol] = CurrBoard[startRow][startCol];
+    CurrBoard[endRow][endCol] = movingPiece;
     CurrBoard[startRow][startCol] = nullptr;
 }
  
