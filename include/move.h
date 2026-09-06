@@ -17,4 +17,4 @@ struct Move
 
 #endif
 
-// struct is in its own independent file as it is used by board controller and my eval.
+// struct is in its own independent file as it is used by board, controller, and my eval.
