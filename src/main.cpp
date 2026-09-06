@@ -128,4 +128,11 @@ TODO: piece polymorphism, psuedo legal moves, check moves, castling game state, 
 - tablebases/opening books
 
 
+6/8/26: TODO
+implement board state struct
+create board state stack to undo moves
+possibly create a GetState function
+uisng a vector vs fixed arrary for boardstate?
+
+
 */

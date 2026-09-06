@@ -22,7 +22,7 @@ struct BoardState
     //en passant targets 
     Bitboard passantTarget;
 
-    std::uint8_t turn;
+    std::uint8_t turn;  // 0 = white, 1 = black
 };
 
 struct Move; //forward declaration
@@ -34,7 +34,12 @@ class Board
        static const int ROWS = 8;
        static const int COLM = 8; 
     
-        Piece* CurrBoard[ROWS][COLM]; //----------> each square points to a piece or null pointer  
+        Piece* CurrBoard[ROWS][COLM]; //----------> each square points to a piece or null pointer 
+        
+        // stack used to hold moves in succession 
+        static const int MAX_MEM = 1024;  
+        BoardState* stateStack;
+        int stackIndex = 0;
 
     public:
         Board();

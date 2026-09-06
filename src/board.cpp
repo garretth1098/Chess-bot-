@@ -8,6 +8,7 @@
 #include "bishop.h"
 #include "knight.h"
 #include "pawn.h"
+#include "move.h"
 
 
 Board::Board()
@@ -15,6 +16,9 @@ Board::Board()
     for (int i = 0; i < ROWS; i++)
         for (int j = 0; j < COLM; j++)
             CurrBoard[i][j] = nullptr;
+
+    stateStack = new BoardState[MAX_MEM];
+    
 }
 
 Board::~Board() 
@@ -22,6 +26,8 @@ Board::~Board()
     for (int i = 0; i < ROWS; i++)
         for (int j = 0; j < COLM; j++)
             delete CurrBoard[i][j];
+
+    delete[] stateStack;
 }
 
 void Board::loadBoard(string fen)  //rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1
@@ -99,6 +105,7 @@ void Board::printBoard()
 
 }
 
+// 
 const Piece* Board::getPiece(int row, int colm) const
 {
     return CurrBoard[row][colm];

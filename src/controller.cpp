@@ -81,7 +81,7 @@ void Controller::handleEvent(const sf::Event& event, sf::RenderWindow& window)
             dragX = event.mouseMove.x;
             dragY = event.mouseMove.y;
 
-            // detect if user moved enough to count as a drag
+            // detect if user moved enough to count as a drag makes movement smoother
             if (abs(dragX - startMouseX) > 5 ||
                 abs(dragY - startMouseY) > 5)
             {
