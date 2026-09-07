@@ -17,8 +17,7 @@ Controller::~Controller()
 
 void Controller::update()
 {
-
-
+    
 }
 
 void Controller::handleEvent(const sf::Event& event, sf::RenderWindow& window)

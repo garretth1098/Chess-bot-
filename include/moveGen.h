@@ -1,7 +1,9 @@
-#ifndef 
+#ifndef MOVE_GEN
 #define MOVE_GEN
 
 #include <vector>
+#include "move.h"
+#include "board.h"
 
 class MoveGenerator
 {
