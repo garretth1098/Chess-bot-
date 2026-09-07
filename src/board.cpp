@@ -34,8 +34,8 @@ void Board::loadBoard(string fen)  //rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR
 {
 
     int row = 7;   //Fen strings read off from top left -> bottom right 
-    int col = 0;   //whereas arrays build bottom left -> top right 
-                   // begin at [7][0] to properly index pieces 
+    int col = 0;   //whereas arrays builds the board from bottom left -> top right 
+                   //begin at [7][0] to properly index pieces 
 
     for (char c : fen)  //loops through each character of the string 
     {
@@ -56,7 +56,7 @@ void Board::loadBoard(string fen)  //rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR
         }
         else if(isalpha(c))
         {
-            Piece::Color color = isupper(c) ? Piece::Color::White : Piece::Color::Black;  //in FEN strings lowercase is black upper is white 
+            Piece::Color color = isupper(c) ? Piece::Color::White : Piece::Color::Black;  //in FEN strings, lowercase is black, uppercase is white 
             
             char pieceType = tolower(c);  // simplify switch statement
             
@@ -105,6 +105,11 @@ void Board::printBoard()
 
 }
 
+void Board::updateBoard()
+{
+    
+}
+
 // 
 const Piece* Board::getPiece(int row, int colm) const
 {
@@ -133,5 +138,11 @@ void Board::movePiece(int startRow, int startCol, int endRow, int endCol)
     
     CurrBoard[endRow][endCol] = movingPiece;
     CurrBoard[startRow][startCol] = nullptr;
+}
+
+void Board::undo()
+{
+    if(stackIndex > 0 ){stackIndex--;}
+    updateBoard();
 }
  
