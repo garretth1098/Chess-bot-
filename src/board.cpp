@@ -10,7 +10,6 @@
 #include "pawn.h"
 #include "move.h"
 
-
 Board::Board()
 {
     for (int i = 0; i < ROWS; i++)
@@ -18,6 +17,31 @@ Board::Board()
             CurrBoard[i][j] = nullptr;
 
     stateStack = new BoardState[MAX_MEM];
+
+
+    // initial boardstate
+	stateStack[0].bitboards[WHITE_PAWN] = 0x000000000000ff00;
+	stateStack[0].bitboards[WHITE_KNIGHT] = 0x0000000000000042;
+	stateStack[0].bitboards[WHITE_BISHOP] = 0x0000000000000024;
+	stateStack[0].bitboards[WHITE_ROOK] = 0x0000000000000081;
+	stateStack[0].bitboards[WHITE_QUEEN] = 0x0000000000000008;
+	stateStack[0].bitboards[WHITE_KING] = 0x0000000000000010;
+
+    stateStack[0].bitboards[BLACK_PAWN] = 0x00ff000000000000;
+	stateStack[0].bitboards[BLACK_KNIGHT] = 0x4200000000000000;
+	stateStack[0].bitboards[BLACK_BISHOP] = 0x2400000000000000;
+	stateStack[0].bitboards[BLACK_ROOK] = 0x8100000000000000;
+	stateStack[0].bitboards[BLACK_QUEEN] = 0x0800000000000000;
+	stateStack[0].bitboards[BLACK_KING] = 0x1000000000000000;
+
+	stateStack[0].WKS = true;
+	stateStack[0].WQS = true;
+	stateStack[0].BKS = true;
+	stateStack[0].BQS = true;
+
+	stateStack[0].passantTarget = 0;
+
+	stateStack[0].turn = WHITE;
     
 }
 
@@ -105,7 +129,8 @@ void Board::printBoard()
 
 }
 
-void Board::updateBoard()
+// syncs board array given a boardstate 
+void Board::updateBoard(const BoardState& state)
 {
     
 }
@@ -121,9 +146,34 @@ Piece* Board::getPiece(int row, int colm)
     return CurrBoard[row][colm];
 }
 
+void Board::movePiece(const Move& move)
+{
+    //create copy of last boardstate and add to end of stack
+    //edit copy of boardstate with move provided 
 
+    //copies last boardstate and pushes it to the stack 
+    stateStack[stackIndex + 1] = stateStack[stackIndex];
+    stackIndex++;
+
+    
+}
 void Board::movePiece(int startRow, int startCol, int endRow, int endCol)
 {
+
+    //create a move object to use as a param
+    Move move;
+    move.from = (startRow * 8) + startCol;
+    move.to = (endRow * 8) + endCol;
+
+
+    // if(!isLegalMove(move))
+    // {
+    //     return;
+    // }
+
+    //movePiece(move);
+
+
     Piece* movingPiece = CurrBoard[startRow][startCol];
     Piece* targetPiece = CurrBoard[endRow][endCol];
     
@@ -143,6 +193,12 @@ void Board::movePiece(int startRow, int startCol, int endRow, int endCol)
 void Board::undo()
 {
     if(stackIndex > 0 ){stackIndex--;}
-    updateBoard();
+    updateBoard(stateStack[stackIndex]);
 }
+
+
+// bool isLegalMove(Move& move)
+// {
+//     //pulls from move generation class. searches through list of legal moves returns bool 
+// }
  
