@@ -132,6 +132,38 @@ void Board::printBoard()
 // syncs board array given a boardstate 
 void Board::updateBoard(const BoardState& state)
 {
+    for(int square = 0; square < 64; square++)
+    {
+        int row = square / 8;
+        int col = square % 8;
+
+        int pieceType = getPiece(state, square);
+        
+        Piece* currentPiece = CurrBoard[row][col];
+
+        // square should be empty but currently has a piece; delete piece
+        if(pieceType == EMPTY && currentPiece != nullptr) 
+        { 
+            delete currentPiece;
+            CurrBoard[row][col] = nullptr;
+            continue;
+        }
+
+        // square should have a piece but its empty; create piece, fill square
+        if(pieceType != EMPTY && currentPiece == nullptr)
+        {
+            CurrBoard[row][col] = createPiece(pieceType);
+            continue;
+        }
+
+        // square has a piece but its different from CurrBoards piece; delete and replace
+        // segmentation fault without 'currentPiece != nullptr' because conditional calls method on nullptr otherwise
+        if(currentPiece != nullptr && pieceType != currentPiece->getPieceIndex())
+        {
+            delete currentPiece;
+            CurrBoard[row][col] = createPiece(pieceType);
+        }
+    }
     
 }
 
@@ -146,6 +178,44 @@ Piece* Board::getPiece(int row, int colm)
     return CurrBoard[row][colm];
 }
 
+Piece* Board::createPiece(int pieceType)
+{
+    switch (pieceType)
+    {
+        case WHITE_PAWN: return new Pawn(Piece::Color::White);// in hindsight using enums as the only piece class param has not helped 
+        case WHITE_KNIGHT: return new Knight(Piece::Color::White);
+        case WHITE_BISHOP: return new Bishop(Piece::Color::White);
+        case WHITE_ROOK: return new Rook(Piece::Color::White);
+        case WHITE_QUEEN: return new Queen(Piece::Color::White);
+        case WHITE_KING: return new King(Piece::Color::White);
+    
+        case BLACK_PAWN: return new Pawn(Piece::Color::Black);    
+        case BLACK_KNIGHT: return new Knight(Piece::Color::Black);
+        case BLACK_BISHOP: return new Bishop(Piece::Color::Black);  
+        case BLACK_ROOK: return new Rook(Piece::Color::Black); 
+        case BLACK_QUEEN: return new Queen(Piece::Color::Black);   
+        case BLACK_KING: return new King(Piece::Color::Black);
+
+        case EMPTY: return nullptr;
+    }
+
+    return nullptr;
+}
+
+int Board::getPiece(const BoardState& state, int square)
+{
+    Bitboard mask = Bitboard(1) << square; // creates a boardstate with a single one-bit in selected square
+    
+
+    for(int i = 0; i < 12; i++)
+    {
+        if(state.bitboards[i] & mask){return i;} // searches each bitboard and finds whats at the specified square
+    }
+
+    return EMPTY;  
+
+}
+
 void Board::movePiece(const Move& move)
 {
     //create copy of last boardstate and add to end of stack
@@ -157,6 +227,7 @@ void Board::movePiece(const Move& move)
 
     
 }
+
 void Board::movePiece(int startRow, int startCol, int endRow, int endCol)
 {
 
@@ -166,12 +237,12 @@ void Board::movePiece(int startRow, int startCol, int endRow, int endCol)
     move.to = (endRow * 8) + endCol;
 
 
-    // if(!isLegalMove(move))
+    // if(!isLegalMove(move)) //returns early if a move is illegal
     // {
     //     return;
     // }
 
-    //movePiece(move);
+    movePiece(move); // calls to update bitboards using the move object we just created 
 
 
     Piece* movingPiece = CurrBoard[startRow][startCol];
@@ -192,7 +263,9 @@ void Board::movePiece(int startRow, int startCol, int endRow, int endCol)
 
 void Board::undo()
 {
-    if(stackIndex > 0 ){stackIndex--;}
+    if(stackIndex <= 0){return;}
+    
+    stackIndex--;
     updateBoard(stateStack[stackIndex]);
 }
 

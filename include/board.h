@@ -31,13 +31,13 @@ struct Move; //forward declaration
 class Board
 {
     protected:
-       static const int ROWS = 8;
-       static const int COLM = 8; 
+        static const int ROWS = 8;
+        static const int COLM = 8; 
     
         Piece* CurrBoard[ROWS][COLM]; //----------> each square points to a piece or null pointer 
         
         // stack used to hold moves in succession 
-        static const int MAX_MEM = 1024;  
+        static const int MAX_MEM = 1024;  //probably enough lmao
         BoardState* stateStack;
         int stackIndex = 0;
 
@@ -78,17 +78,23 @@ class Board
         virtual ~Board();
         
         void printBoard();
-        void loadBoard(string fen); //-------------------> takes in a FEN string and loads it into the array
+        void loadBoard(string fen); //--------------> takes in a FEN string and loads it into the array
         void updateBoard(const BoardState& state); // takes in a specified state reloads Piece array
         // I could simply rely on bitboard tracking but chose a hybrid design 
         // becasuse I dont want to refactor how my view draws everything
 
-        const Piece* getPiece(int row, int colm) const;
+        const Piece* getPiece(int row, int colm) const; //used for GUI drawing 
         Piece* getPiece(int row, int colm);
+
+        Piece* createPiece(int pieceType); // //helper functions for update board
+        int getPiece(const BoardState& state, int square);
+
+        //two move functions one for the GUI using an array and one for the engine using bitboards
         void movePiece(const Move& move);
         void movePiece(int startRow, int startCol, int endRow, int endCol);
-        void undo();
-        bool isLegalMove(Move& move);
+        
+        void undo(); //---------------> reverses previous move by loading last boardstate
+        bool isLegalMove(Move& move); 
 };
 
 
