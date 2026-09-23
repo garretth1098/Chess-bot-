@@ -33,7 +33,12 @@ void Controller::handleEvent(const sf::Event& event, sf::RenderWindow& window)
         {
             window.close();
         }
+        if (event.key.code == sf::Keyboard::U)
+        {
+            board.undo();
+        }
     }
+
     
     //================
     //  Mouse events

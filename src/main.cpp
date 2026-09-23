@@ -63,6 +63,7 @@ void run(Board& game, View& view, Controller& controller, int depth)
     //create SFML window 
     sf::RenderWindow window(sf::VideoMode(800, 800), "Big DEEP Blue", sf::Style::Close);
     window.setFramerateLimit(60);  //improve performance 
+    window.setKeyRepeatEnabled(false); //makes it so that input is accepted once per key press
 
     // Event object to hold the event data
     sf::Event event;
